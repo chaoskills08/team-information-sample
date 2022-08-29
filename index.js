@@ -5,6 +5,7 @@ const Engineer = require('./classes/Engineer')
 const Intern = require('./classes/Intern')
 const Manager = require('./classes/Manager')
 const employeeBucket = []
+const generateMarkdown = require('./utils/generateMarkdown')
 
 const init = () => {
   return inquirer.prompt([
@@ -33,34 +34,97 @@ const init = () => {
     // console.log(t)
     const {managerName, managerId, managerEmail, managerOffNum} = m
     const manager = new Manager(managerName, managerId, managerEmail, managerOffNum)
-    // console.log(employeeBucket)
+    employeeBucket.push(manager)
     createTeam()
   })
 }
 
-const CreateTeam = () => {
-  inquirer.prompt([
+const createTeam = () => {
+  return inquirer.prompt([
     {
-      type: 'choices',
+      type: 'list',
       message: 'Would you like to add someone to the team?',
-      choices: ['intern', 'engineer'],
-      name: 'newMemeber',
+      choices: ['intern', 'engineer', 'no further team members'],
+      name: 'newMember',
     }
-    // list of choices of team names
-    // take employee type, fire function to create employee if answer is yes
-    // finish if done, push to HTML, if not~~
-    // create team again
-    // three more functions
-  ])
-  // TODO: Future development
-//   let internPick = inquirer.prompt.choices[0]
-//   if (internPick == 'intern') {
-    
-//   }
-// }
+  ]) 
+  .then ((newTeamMember) => {
+    switch (newTeamMember.newMember) {
+      case "engineer":
+        createEngineer();
+        break;
+      case "intern":
+        createIntern();
+        break;
+      case "no further team members":
+        console.log(employeeBucket)
+        // pushEmployee();
+      }
+  })
 }
-const createIntern = (i) => {
-  const {internName, internId, internEmail, internOffNum} =i
-  const intern = new Intern(internName, internId, internEmail, internOffNum)
+
+const createIntern = () => {
+
+  return inquirer.prompt([
+    {
+      type: 'input',
+      message: 'Enter intern name',
+      name: 'internName'
+    },
+    {
+      type: 'input',
+      message: 'Enter intern ID',
+      name: 'internId'
+    },
+    {
+      type: 'input',
+      message: 'Enter intern email',
+      name: 'internEmail'
+    },
+    {
+      type: 'input',
+      message: 'Enter intern office number',
+      name: 'internOffNum'
+    }
+    ])
+    .then((i) => {
+      const {internName, internId, internEmail, internOffNum} = i
+      const intern = new Intern(internName, internId, internEmail, internOffNum)
+      console.log(intern)
+      employeeBucket.push(intern)
+      createTeam()
+})
+}
+
+const createEngineer = () => {
+  return inquirer.prompt([
+    {
+      type: 'input',
+      message: 'Enter engineer name',
+      name: 'engineerName'
+    },
+    {
+      type: 'input',
+      message: 'Enter engineer ID',
+      name: 'engineerId'
+    },
+    {
+      type: 'input',
+      message: 'Enter engineer email',
+      name: 'engineerEmail'
+    },
+    {
+      type: 'input',
+      message: 'Enter engineer office number',
+      name: 'engineerOffNum'
+    }
+    ])
+    .then((e) => {
+      const {engineerName, engineerId, engineerEmail, engineerOffNum} = e
+      const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerOffNum)
+      console.log(engineer)
+      employeeBucket.push(engineer)
+      createTeam()
+})
 }
 init()
