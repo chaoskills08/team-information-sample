@@ -7,7 +7,4 @@ class Manager extends Employee {
   }
 }
 
-const test = new Manager('Nick', 8, 'test@email.com', 34)
-// console.log(test)
-
 module.exports = Manager;

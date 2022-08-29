@@ -7,7 +7,4 @@ class Employee {
   }
 }
 
-const test = new Employee('Nick', 8, 'test@email.com', 'Employee')
-// console.log(test)
-
 module.exports = Employee;

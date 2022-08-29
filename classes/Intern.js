@@ -7,7 +7,4 @@ class Intern extends Employee {
   }
 }
 
-const test = new Intern('Matt', 18, 'matt@gmail.com', 29) 
-console.log(test)
-
 module.exports = Intern
