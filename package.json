@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/chaoskills08/team-information-sample#readme",
   "dependencies": {
-    "inquirer": "^8.2.4"
+    "bootstrap-icons": "^1.9.1",
+    "inquirer": "^8.2.4",
+    "jest": "^29.0.1"
   }
 }
