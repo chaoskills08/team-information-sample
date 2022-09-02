@@ -1,11 +1,15 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Employee = require('./classes/Employee')
-const Engineer = require('./classes/Engineer')
-const Intern = require('./classes/Intern')
-const Manager = require('./classes/Manager')
-const employeeBucket = []
-const generateMarkdown = require('./utils/generateMarkdown')
+const generateMarkdown = require('./utils/generateMarkdown');
+
+
+const Employee = require('./classes/Employee');
+const Engineer = require('./classes/Engineer');
+const Intern = require('./classes/Intern');
+const Manager = require('./classes/Manager');
+
+const employeeBucket = [];
+
 
 const init = () => {
   return inquirer.prompt([
@@ -35,9 +39,9 @@ const init = () => {
     const {managerName, managerId, managerEmail, managerOffNum} = m
     const manager = new Manager(managerName, managerId, managerEmail, managerOffNum)
     employeeBucket.push(manager)
-    createTeam()
+    createTeam(manager)
   })
-}
+};
 
 const createTeam = () => {
   return inquirer.prompt([
@@ -57,11 +61,10 @@ const createTeam = () => {
         createIntern();
         break;
       case "no further team members":
-        console.log(employeeBucket)
-        // pushEmployee();
+        pushEmployee()
       }
   })
-}
+};
 
 const createIntern = () => {
 
@@ -83,18 +86,17 @@ const createIntern = () => {
     },
     {
       type: 'input',
-      message: 'Enter intern office number',
-      name: 'internOffNum'
+      message: 'Enter intern school',
+      name: 'internSchool'
     }
     ])
     .then((i) => {
-      const {internName, internId, internEmail, internOffNum} = i
-      const intern = new Intern(internName, internId, internEmail, internOffNum)
-      console.log(intern)
+      const {internName, internId, internEmail, internSchool} = i
+      const intern = new Intern(internName, internId, internEmail, internSchool)
       employeeBucket.push(intern)
-      createTeam()
+      createTeam(intern)
 })
-}
+};
 
 const createEngineer = () => {
   return inquirer.prompt([
@@ -115,16 +117,20 @@ const createEngineer = () => {
     },
     {
       type: 'input',
-      message: 'Enter engineer office number',
-      name: 'engineerOffNum'
+      message: 'Enter engineer GitHub username',
+      name: 'engineerUser',
     }
     ])
     .then((e) => {
-      const {engineerName, engineerId, engineerEmail, engineerOffNum} = e
-      const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerOffNum)
-      console.log(engineer)
+      const {engineerName, engineerId, engineerEmail, engineerUser} = e
+      const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerUser)
       employeeBucket.push(engineer)
-      createTeam()
+      createTeam(engineer)
 })
-}
+};
+
+const pushEmployee = () => {
+  fs.writeFileSync('./dist/index.html', generateMarkdown(employeeBucket), (err) => err ? console.log("You missed some fields, start over") : console.log('HTML created'))
+};
+
 init()
