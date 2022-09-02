@@ -1,9 +1,17 @@
 const Employee = require('./Employee');
 
 class Engineer extends Employee {
-  constructor(name, id, email, officeNumber) {
+  constructor(name, id, email, user) {
     super(name, id, email, 'engineer')
-    this.officeNumber = officeNumber
+    this.user = user
+  }
+
+  getPos() {
+    return "Engineer"
+}
+
+  getGitHub() {
+    return this.user
   }
 }
 
