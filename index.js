@@ -2,14 +2,12 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
 
-
 const Employee = require('./classes/Employee');
 const Engineer = require('./classes/Engineer');
 const Intern = require('./classes/Intern');
 const Manager = require('./classes/Manager');
 
 const employeeBucket = [];
-
 
 const init = () => {
   return inquirer.prompt([
@@ -35,7 +33,6 @@ const init = () => {
     },
   ])  
   .then((m) => {
-    // console.log(t)
     const {managerName, managerId, managerEmail, managerOffNum} = m
     const manager = new Manager(managerName, managerId, managerEmail, managerOffNum)
     employeeBucket.push(manager)
@@ -95,7 +92,7 @@ const createIntern = () => {
       const intern = new Intern(internName, internId, internEmail, internSchool)
       employeeBucket.push(intern)
       createTeam(intern)
-})
+  })
 };
 
 const createEngineer = () => {
@@ -126,7 +123,7 @@ const createEngineer = () => {
       const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerUser)
       employeeBucket.push(engineer)
       createTeam(engineer)
-})
+  })
 };
 
 const pushEmployee = () => {
