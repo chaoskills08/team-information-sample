@@ -1,7 +1,7 @@
 
 # Team Profile Generator
 ## Screenshot of deployed application
-images\deployed-team-gen.png
+![image](https://user-images.githubusercontent.com/55863153/188291330-d78eda4d-f718-4e29-adc5-64a6e43dea06.png)
 ## Description of project
 This application generates cards for members on a team including interns, engineers and managers. Each role will get their own card which displays data significant to them, including shared data such as office number, title and ID.
 ## How to install
